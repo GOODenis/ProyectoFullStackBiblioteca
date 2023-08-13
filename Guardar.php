@@ -17,4 +17,5 @@ $numeroIsbn    = $_POST['number'];
 mysql_query("INSERT INTO DatosLibros VALUES('','$nombreLibro','$numeroPaginas','$numeroIsbn','$nombreAutor)",$link)
 or die ("<h2> Error de envio</h2>");
 
+
 ?>
