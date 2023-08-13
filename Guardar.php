@@ -5,6 +5,7 @@ $link = mysql_connect("localhost","root","") or die ("<h2> No se encuentra el se
 $db = mysql_select_db("GuardarLibro",$link) or die ("<h2> Error de conexion </h2>");
 
 
+
 // Obtenemos los valores del formulario
 
 $nombreLibro   = $_POST['date'];
