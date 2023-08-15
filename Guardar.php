@@ -1,10 +1,22 @@
 <?php 
 //Conexion con la base de datos y el servidor
 
-$link = mysql_connect("localhost","root","") or die ("<h2> No se encuentra el servidor </h2>");
-$db = mysql_select_db("GuardarLibro",$link) or die ("<h2> Error de conexion </h2>");
+$server = "localhost";
+$user = "root";
+$pass = "";
+$db = "librosalmacenados";
+
+$conexion = new mysqli($server, $user, $pass, $db);
 
 
+
+if($conexion->connect_errno){
+    die("conexion fallida" . $conexion->connect_errno);
+} else{
+    echo " conectado";
+}
+
+//asta esta parte esta joya me da la conexion a la base de datos //
 
 // Obtenemos los valores del formulario
 
