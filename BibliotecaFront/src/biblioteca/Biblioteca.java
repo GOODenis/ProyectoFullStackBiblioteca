@@ -5,7 +5,8 @@
 package biblioteca;
 
 import interfazBiblioteca.Pantalla;
-
+import interfazBiblioteca.Pantalla2registro;
+import interfazBiblioteca.Pantallaprincipal;
 /**
  *
  * @author Ivan
@@ -19,6 +20,11 @@ public class Biblioteca {
       Pantalla panta = new Pantalla();
       panta.setVisible(true);
       panta.setLocationRelativeTo(null);
+      
+      
+      
+    Pantallaprincipal Panta = new Pantallaprincipal();
+ Panta.setLocationRelativeTo(null);
     }
     
 }
