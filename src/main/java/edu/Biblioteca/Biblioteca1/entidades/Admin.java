@@ -8,13 +8,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Estudiante {
+
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-
-    @OneToMany(mappedBy = "estudiante")
-    private List<Prestamo> prestamos;
-    
 }
