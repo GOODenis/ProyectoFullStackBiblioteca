@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Estilos.css">
+    
+</head>
+<body id="PantaInicio">
+    
+
+    <h1><strong>¡Bienvenido a la Página de Inicio!</strong></h1>
+
+    <h3>Por favor, Complete los campos para Retirar un libro :</h3>
+
+
+    <h2>Nombre del libro:</h2>
+<input type="text"placeholder="Nombre libro..."
+id="Libro">
+
+
+<h2>Número de DNI:</h2>
+<input type="text"placeholder="Número DNI..."
+id="DNI">
+
+
+
+
+<h2>Nombre Usuario:</h2>
+<input type="text"placeholder="Nombre Usuario..."
+id="Usuario">
+
+    <h1>Ingrese el estado del Libro:</h1>
+
+<form action="">
+
+
+
+    <input type="radio" id="opcion1" name="opciones"
+    value="opcion1">
+<label for="opcion2">Libro Llevado</label> <br>
+
+<br>
+<br>
+
+<input type="radio" id="opcion2" name="opciones"
+value="opcion2">
+<label for="opcion2">Libro Entregado</label> <br>
+
+<br>
+<br>
+<br>
+
+</form>
+<br>
+<br>
+<br>
+
+<script src="Logica.js">
+<button  oneclick="agregar()" >Agregar</button>
+</script>
+<div>
+    <table id="Tabla" >
+       
+    
+    <thead >
+        <tr>
+            <th>
+                Nombre Libro
+            </th>
+            <th>
+                DNI
+            </th>
+            <th>
+                Usuario
+            </th>
+
+            <th>
+               Estado Libro
+            </th>
+        </tr> 
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </tbody>
+    
+        
+    </table>
+</div>
+
+
+<br>
+<br>
+
+
+
+
+
+
+ 
+
+</body>
+</html>
