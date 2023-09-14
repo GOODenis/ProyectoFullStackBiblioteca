@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,78 +7,31 @@
 <link rel="stylesheet" href="Estilos.css">
 
 </head>
-
-<body id="PantaRegistro">
-    
-
-
-    <form action="">
-
-<h1><strong>
-    ¡Por favor, complete los campos solicitados!
-</strong></h1>
-<br>
-<br>
-
-<h2><strong>
-    Número DNI:
-</strong></h2>
-<br>
-<input type="number"placeholder="Su DNI..."
-id="DNI">
-
-<br>
-<br>
-
-<h2><strong>
-    Nombre:
-</strong></h2>
-<br>
-<input type="name"placeholder="Su Nombre..."
-id="Nombre">
-<br>
-<br>
-<h2><strong>
-    Apellido:
-</strong></h2>
-<br>
-<input type="name"placeholder="Su Apellido..."
-id="Apellido">
-
-
-
-
-<br>
-<br>
-
-
-
-<h2><strong>
-   Usuario:
-</strong></h2>
-<br>
-<input type="text"placeholder="Nombre Usuario..."
-id="Usuario"> <br>
-
-<br>
-<br>
-<br>
-
-
-
-
-<button><a href="PantallaLogin.html" id="Cancelar">Cancelar</a></button> 
-<br>
-<br>
-
-<button><a href="PantaInicio.html" id="Registrar">Registrar Datos</a></button>
-    </form>
-
-
-
-
-
-
-
+<body>
+    <div class="center-registro">
+        <form action="">
+            <h1><strong>¡Por favor, complete los campos solicitados!</strong></h1>
+            <div class="registro-usuario">
+                <h2><strong>Número DNI:</strong></h2>
+                <input type="number" placeholder="Su DNI..." id="DNI">
+            </div>
+            <div class="registro-usuario">
+                <h2><strong>Nombre:</strong></h2>
+                <input type="text" placeholder="Su Nombre..." id="Nombre">
+            </div>
+            <div class="registro-usuario">
+                <h2><strong>Apellido:</strong></h2>
+                <input type="text" placeholder="Su Apellido..." id="Apellido">
+            </div>
+            <div class="registro-usuario">
+                <h2><strong>Usuario:</strong></h2>
+                <input type="text" placeholder="Nombre Usuario..." id="Usuario">
+            </div>
+            <a href="PantallaLogin.html" id="Cancelar">
+                <button>CANCELAR</button></a>
+            <a href="PantaInicio.html" id="Registrar">
+                <button>REGISTRAR DATOS</button></a>
+        </form>
+    </div>
 </body>
 </html>
