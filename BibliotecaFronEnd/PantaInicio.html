@@ -1,109 +1,151 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Inicio</title>
+
     <link rel="stylesheet" href="Estilos.css">
+
     
+
 </head>
-<body id="PantaInicio">
-    
 
-    <h1><strong>¡Bienvenido a la Página de Inicio!</strong></h1>
+<body >
 
-    <h3>Por favor, Complete los campos para Retirar un libro :</h3>
+    <div class="center-inicio">
 
+        <h1><strong>¡Bienvenido a la Página de Inicio!</strong></h1>
 
-    <h2>Nombre del libro:</h2>
-<input type="text"placeholder="Nombre libro..."
-id="Libro">
+        <h3>Por favor, Complete los campos para Retirar un libro :</h3>
 
+        <div class="formulario_libro">
 
-<h2>Número de DNI:</h2>
-<input type="text"placeholder="Número DNI..."
-id="DNI">
+            <div class="ingreso_libro">
 
+                <h2>Nombre del libro:</h2>
 
+                <input type="text" id="Libro" placeholder="Nombre del Libro">
 
+            </div>
 
-<h2>Nombre Usuario:</h2>
-<input type="text"placeholder="Nombre Usuario..."
-id="Usuario">
+            <div class="ingreso_libro">
 
-    <h1>Ingrese el estado del Libro:</h1>
+                <h2>Numero del DNI:</h2>
 
-<form action="">
+                <input type="text" id="DNI" placeholder="Numero DNI">
 
+            </div>
 
+            <div class="ingreso_libro">
 
-    <input type="radio" id="opcion1" name="opciones"
-    value="opcion1">
-<label for="opcion2">Libro Llevado</label> <br>
+                <h2>Nombre del Usuario:</h2>
 
+                <input type="text" id="Usuario" placeholder="Nombre Usuario">
+
+            </div>
+
+            <div class="ingreso_libro">
+
+                <h2>Ingrese el Estado del Libro</h2>
+
+                <form action="">
+
+                    <input type="radio" id="opcion1" name="opciones" value="opcion1">
+
+                    <label for="opcion2">LIBRO LLEVADO</label> 
 <br>
-<br>
+                    <br>
 
-<input type="radio" id="opcion2" name="opciones"
-value="opcion2">
-<label for="opcion2">Libro Entregado</label> <br>
+                    <br>
 
-<br>
-<br>
-<br>
+                    <input type="radio" id="opcion2" name="opciones" value="opcion2">
 
-</form>
-<br>
-<br>
-<br>
+                    <label for="opcion2">LIBRO ENTREGADO</label>
+ <br>
 
+                </form>
 
-<button  oneclick="agregar()" >Agregar</button>
+            </div>
 
-<div>
-    <table id="Tabla" >
-       
-    
-    <thead >
-        <tr>
-            <th>
-                Nombre Libro
-            </th>
-            <th>
-                DNI
-            </th>
-            <th>
-                Usuario
-            </th>
+            <button oneclick="agregar()">RETIRAR LIBRO</button>
 
-            <th>
-               Estado Libro
-            </th>
-        </tr> 
-    </thead>
-    <tbody>
-        <tr>
-            <td></td>
-            <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-    
-        
-    </table>
-</div>
+        </div>
 
 
-<br>
-<br>
+        <div class="formulario_libro">
 
+            <table>
 
+                <thead>
 
+                <tr>
 
+                    <th>Nombre Libro</th>
 
+                    <th>DNI</th>
 
- 
+                    <th>Usuario</th>
+
+                    <th>Estado Libro</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr>
+
+                    <td>Libro 1</td>
+
+                    <td>12345678</td>
+
+                    <td>Usuario1</td>
+
+                    <td>Disponible</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Libro 2</td>
+
+                    <td>87654321</td>
+
+                    <td>Usuario2</td>
+
+                    <td>Prestado</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Libro 3</td>
+
+                    <td>98765432</td>
+
+                    <td>Usuario3</td>
+
+                    <td>Disponible</td>
+
+                </tr>
+
+                <!-- Puedes agregar más filas según sea necesario -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>
