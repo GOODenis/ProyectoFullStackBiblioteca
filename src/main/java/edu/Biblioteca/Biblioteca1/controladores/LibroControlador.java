@@ -46,7 +46,7 @@ public class LibroControlador implements WebMvcConfigurer {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("fragments/base");
     mav.addObject("titulo", "Crear libro");
-    mav.addObject("vista", "libro/crear");
+    mav.addObject("vista", "libros/crear");
     mav.addObject("libro", libro);
     return mav;
   }
@@ -69,7 +69,7 @@ public class LibroControlador implements WebMvcConfigurer {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("fragments/base");
     mav.addObject("titulo", "Editar libro");
-    mav.addObject("vista", "libro/editar");
+    mav.addObject("vista", "libros/editar");
     mav.addObject("libro", libroServicio.getById(id));
 
     return mav;
@@ -81,7 +81,7 @@ public class LibroControlador implements WebMvcConfigurer {
       ModelAndView mav = new ModelAndView();
       mav.setViewName("fragments/base");
       mav.addObject("titulo", "Editar libro");
-      mav.addObject("vista", "libro/editar");
+      mav.addObject("vista", "libros/editar");
       mav.addObject("libro", libro);
       return mav;
     }
