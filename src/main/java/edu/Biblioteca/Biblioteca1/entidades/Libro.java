@@ -1,11 +1,9 @@
 package edu.Biblioteca.Biblioteca1.entidades;
 
 import java.util.*;
-
 //import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.*;
-//import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Entity
@@ -19,4 +17,13 @@ public class Libro {
     private String titulo;
     private String autor;
     private Long cantidad;
+
+
+     // muchos libros se relacionan con el mismo admin
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    private Admin admin;
+
+
+
+
 }
