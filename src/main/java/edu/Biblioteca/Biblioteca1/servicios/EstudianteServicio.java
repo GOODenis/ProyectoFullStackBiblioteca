@@ -11,7 +11,7 @@ public class EstudianteServicio {
 
     @Autowired
     EstudianteRepositorio estudianteRepositorio;
-    //Traer todos los estudiante en una lista
+    //Traer todos los estudiante en lista
     public List<Estudiante> getAll() {
         List<Estudiante> lista = new ArrayList<Estudiante>();
         estudianteRepositorio.findAll().forEach(registro -> lista.add(registro));
