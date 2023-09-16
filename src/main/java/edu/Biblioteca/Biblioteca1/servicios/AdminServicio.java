@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 @Service
-public class LibroServicio {
+public class AdminServicio {
 
     @Autowired
     LibroRepositorio libroRepositorio;

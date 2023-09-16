@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PrestamoRepositorio extends CrudRepository<Prestamo, Long>{
     @Query("SELECT c FROM Estudiante, Libro c WHERE c.admin.id = ?1")
-    List<Estudiante> findByArea(Long id);
+    List<Estudiante> findByEstudiantes(Long id);
 
     boolean hasReferences(Long id);
 

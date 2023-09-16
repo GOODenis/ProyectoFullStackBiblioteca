@@ -1,16 +1,14 @@
 package edu.Biblioteca.Biblioteca1.repositorios;
 
 import edu.Biblioteca.Biblioteca1.entidades.*;
-import java.util.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LibroRepositorio extends CrudRepository<Libro, Long> {
-  @Query("SELECT c FROM Estudiante c WHERE c.admin.id = ?1")
-  List<Libro> findByLibros(Long id);
+public interface AdminRepositorio extends CrudRepository<Prestamo, Long> {
 
-  boolean hasReferences(Long id);
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM Libro c WHERE c.area.id = ?1")
+    boolean hasReferences(Long id);
 
 }
