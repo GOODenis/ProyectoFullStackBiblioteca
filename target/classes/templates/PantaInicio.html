@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inicio</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        h1 {
+            color: #000000;
+            text-align: center;
+            font-family:fantasy; 
+            width: 150;
+        }
+        /* Agrega más reglas CSS según sea necesario */
+    </style>
+    <link rel="stylesheet" type="text/css" href="estilos.css">
+
+    
+
+</head>
+
+<body >
+
+    <div class="center-inicio">
+
+        <h1><strong>¡Bienvenido a la Página de Inicio!</strong></h1>
+
+        <h3>Por favor, Complete los campos para Retirar un libro :</h3>
+
+        <div class="formulario_libro">
+
+            <div class="ingreso_libro">
+
+                <h2>Nombre del libro:</h2>
+
+                <input type="text" id="Libro" placeholder="Nombre del Libro">
+
+            </div>
+
+            <div class="ingreso_libro">
+
+                <h2>Numero del DNI:</h2>
+
+                <input type="text" id="DNI" placeholder="Numero DNI">
+
+            </div>
+
+            <div class="ingreso_libro">
+
+                <h2>Nombre del Usuario:</h2>
+
+                <input type="text" id="Usuario" placeholder="Nombre Usuario">
+
+            </div>
+
+            <div class="ingreso_libro">
+
+                <h2>Ingrese el Estado del Libro</h2>
+
+                <form action="">
+
+                    <input type="radio" id="opcion1" name="opciones" value="opcion1">
+
+                    <label for="opcion2">LIBRO LLEVADO</label> 
+<br>
+                    <br>
+
+                    <br>
+
+                    <input type="radio" id="opcion2" name="opciones" value="opcion2">
+
+                    <label for="opcion2">LIBRO ENTREGADO</label>
+ <br>
+
+                </form>
+
+            </div>
+
+            <button oneclick="agregar()">RETIRAR LIBRO</button>
+
+        </div>
+
+
+        <div class="formulario_libro">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Nombre Libro</th>
+
+                    <th>DNI</th>
+
+                    <th>Usuario</th>
+
+                    <th>Estado Libro</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr>
+
+                    <td>Libro 1</td>
+
+                    <td>12345678</td>
+
+                    <td>Usuario1</td>
+
+                    <td>Disponible</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Libro 2</td>
+
+                    <td>87654321</td>
+
+                    <td>Usuario2</td>
+
+                    <td>Prestado</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Libro 3</td>
+
+                    <td>98765432</td>
+
+                    <td>Usuario3</td>
+
+                    <td>Disponible</td>
+
+                </tr>
+
+                <!-- Puedes agregar más filas según sea necesario -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -33,15 +33,15 @@
                     <td th:text="${libro.autor}"></td>
                     <td th:text="${libro.cantidad}"></td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{'/libros/{id}' (id=${libro.id})}">
+                        <a class="btn btn-primary" th:href="@{'/libro/ver' + ${libro.id}}">
                             <i class="fa-solid fa-eye"></i> Ver
                         </a>
 
-                        <a class="btn btn-secondary" th:href="@{'/libros/editar/{id}' (id=${libro.id})}">
+                        <a class="btn btn-secondary" th:href="@{'/libro/editar/' + ${libro.id}}">
                             <i class="fa-solid fa-pencil"></i> Editar
                         </a>
 
-                        <form class="d-inline" th:action="@{'/libros/{id}' (id=${libro.id})}" th:method="DELETE">
+                        <form class="d-inline" th:action="@{'/libro/' + ${libro.id}}" th:method="delete">
                             <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro de eliminar?')">
                                 <i class="fa-solid fa-trash-can"></i> Eliminar
                             </button>
@@ -55,6 +55,6 @@
 
 <script th:fragment="script">
     $(document).ready(function() {
-        $('#libros').DataTable();
+        $('#libro').DataTable();
     });
 </script>
