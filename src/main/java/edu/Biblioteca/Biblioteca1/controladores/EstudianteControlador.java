@@ -122,13 +122,15 @@ public class EstudianteControlador {
 
     @Autowired
     EstudianteServicio estudianteServicio;
+    @Autowired
+    EstudianteRepositorio estudianteRepositorio;
 
-    @GetMapping
-    public List<Estudiante> listarEstudiantes() {
+    @GetMapping("/lista")
+    public List<Estudiante> lista() {
         return estudianteServicio.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("ver/{id}")
     public ResponseEntity<Estudiante> obtenerEstudiantePorId(@PathVariable Long id) {
         Estudiante estudiante = estudianteServicio.getById(id);
         if (estudiante != null) {

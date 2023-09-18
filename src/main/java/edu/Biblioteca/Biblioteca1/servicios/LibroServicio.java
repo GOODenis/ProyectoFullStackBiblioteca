@@ -10,7 +10,7 @@ import org.springframework.stereotype.*;
 public class LibroServicio {
 
     @Autowired
-    LibroRepositorio libroRepositorio;
+    private LibroRepositorio libroRepositorio;
 
     public List<Libro> getAll() {
         return libroRepositorio.findAll();

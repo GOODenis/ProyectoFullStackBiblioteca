@@ -19,18 +19,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
 @RequestMapping("libros")
-public class LibroControlador {
+public class LibroControlador implements WebMvcConfigurer{
 
     @Autowired
     LibroServicio libroServicio;
 
-    @GetMapping
+    @GetMapping("/lista")
     public List<Libro> index() {
         return libroServicio.getAll();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable Long id) {
+    @GetMapping("/editar/{id}")
+    public ResponseEntity<Libro> ver(@PathVariable Long id) {
         Libro libro = libroServicio.getById(id);
         if (libro != null) {
             return new ResponseEntity<>(libro, HttpStatus.OK);
@@ -39,13 +39,13 @@ public class LibroControlador {
         }
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<Libro> crear(@Valid @RequestBody Libro libro) {
         libroServicio.save(libro);
         return new ResponseEntity<>(libro, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/editar/{id}")
     public ResponseEntity<Libro> editar(@PathVariable Long id, @Valid @RequestBody Libro libro) {
         Libro libroExistente = libroServicio.getById(id);
         if (libroExistente != null) {
@@ -60,7 +60,7 @@ public class LibroControlador {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("//{id}")
     public ResponseEntity<Void> eliminarLibro(@PathVariable Long id) {
         Libro libro = libroServicio.getById(id);
         if (libro != null) {
@@ -71,4 +71,3 @@ public class LibroControlador {
         }
     }
 }
-

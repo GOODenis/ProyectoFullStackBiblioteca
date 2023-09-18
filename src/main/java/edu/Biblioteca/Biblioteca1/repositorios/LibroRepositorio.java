@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LibroRepositorio extends JpaRepository<Libro, Long> {
-    @Query("SELECT c FROM libro WHERE libro.id = ?1")
+   //@Query("SELECT c FROM libro WHERE libro.id = ?1")
   //List<Libro> findByLibros(Long id);
-  boolean hasReferences(Long id);
+  //boolean hasReferences(Long id);
+//boolean existsByPrestamos_EstudianteId(Long id);
 }
