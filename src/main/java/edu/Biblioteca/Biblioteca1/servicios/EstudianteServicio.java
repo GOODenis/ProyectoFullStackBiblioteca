@@ -13,13 +13,11 @@ public class EstudianteServicio {
     EstudianteRepositorio estudianteRepositorio;
 
     public List<Estudiante> getAll() {
-        List<Estudiante> lista = new ArrayList<Estudiante>();
-        estudianteRepositorio.findAll().forEach(registro -> lista.add(registro));
-        return lista;
+        return estudianteRepositorio.findAll();
     }
 
     public Estudiante getById(Long id) {
-        return estudianteRepositorio.findById(id).get();
+        return estudianteRepositorio.findById(id).orElse(null);
     }
 
     public void save(Estudiante estudiante) {
@@ -29,5 +27,4 @@ public class EstudianteServicio {
     public void delete(Long id) {
         estudianteRepositorio.deleteById(id);
     }
-    
 }

@@ -7,108 +7,67 @@ import jakarta.validation.Valid;
 import java.util.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 @RestController
 @RequestMapping("prestamos")
-public class PrestamoControlador implements WebMvcConfigurer {
-    @Autowired
-    PrestamoRepositorio prestamoRepositorio;
-  
+public class PrestamoControlador {
+
     @Autowired
     PrestamoServicio prestamoServicio;
 
     @GetMapping
-  public ModelAndView index() {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("fragments/base");
-    mav.addObject("titulo", "Listado de Prestamos");
-    mav.addObject("vista", "prestamos/index");
-    mav.addObject("prestamos", prestamoServicio.getAll());
-    return mav;
-  }
+    public List<Prestamo> listarPrestamos() {
+        return prestamoServicio.getAll();
+    }
 
-  @GetMapping("/lista")
-  public List<Prestamo> lista() {
-    return prestamoServicio.getAll();
-  }
+    @GetMapping("/{id}")
+    public ResponseEntity<Prestamo> obtenerPrestamoPorId(@PathVariable Long id) {
+        Prestamo prestamo = prestamoServicio.getById(id);
+        if (prestamo != null) {
+            return new ResponseEntity<>(prestamo, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Prestamo> crearPrestamo(@Valid @RequestBody Prestamo prestamo) {
+        prestamoServicio.save(prestamo);
+        return new ResponseEntity<>(prestamo, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Prestamo> actualizarPrestamo(@PathVariable Long id, @Valid @RequestBody Prestamo prestamo) {
+        Prestamo prestamoExistente = prestamoServicio.getById(id);
+        if (prestamoExistente != null) {
+            // Actualizar los campos necesarios
+            prestamoExistente.setFechaPrestamo(prestamo.getFechaPrestamo());
+            prestamoExistente.setFechaDevolucion(prestamo.getFechaDevolucion());
+            prestamoExistente.setEstudiante(prestamo.getEstudiante());
+            prestamoExistente.setLibro(prestamo.getLibro());
+            prestamoServicio.save(prestamoExistente);
+            return new ResponseEntity<>(prestamoExistente, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarPrestamo(@PathVariable Long id) {
+        Prestamo prestamo = prestamoServicio.getById(id);
+        if (prestamo != null) {
+            prestamoServicio.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+}
 
   
-  @GetMapping("/crear")
-  public ModelAndView crear(Prestamo prestamo) {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("fragments/base");
-    mav.addObject("titulo", "Cargar prestamo");
-    mav.addObject("vista", "prestamo/crear");
-    mav.addObject("prestamo", prestamo);
-    return mav;
-  }
-
-  @PostMapping("/crear")
-  public ModelAndView guardar(@Valid Prestamo prestamo, BindingResult br, RedirectAttributes ra) {
-    if ( br.hasErrors() ) {
-      return this.crear(prestamo);
-    }
-
-    prestamoServicio.save(prestamo);
-
-    ModelAndView mav = this.index();
-    mav.addObject("exito", "Prestamo cargado exitosamente");
-    return mav;
-  }
-
-  @GetMapping("/editar/{id}")
-  public ModelAndView editar(@PathVariable("id") Long id, Prestamo prestamo) {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("fragments/base");
-    mav.addObject("titulo", "Editar prestamo");
-    mav.addObject("vista", "prestamo/editar");
-    mav.addObject("prestamo", prestamoServicio.getById(id));
-
-    return mav;
-  }
-
-  @PutMapping("/editar/{id}")
-  public ModelAndView actualizar(@PathVariable("id") Long id, @Valid Prestamo prestamo, BindingResult br, RedirectAttributes ra) {
-    if ( br.hasErrors() ) {
-      ModelAndView mav = new ModelAndView();
-      mav.setViewName("fragments/base");
-      mav.addObject("titulo", "Editar prestamo");
-      mav.addObject("vista", "prestamo/editar");
-      mav.addObject("prestamo", prestamo);
-      return mav;
-    }
-
-    Prestamo registro = prestamoServicio.getById(id);
-    registro.setFechaPrestamo(prestamo.getFechaPrestamo());
-    registro.setFechaDevolucion(prestamo.getFechaDevolucion());
-
-    ModelAndView mav = this.index();
-
-    prestamoServicio.save(registro);
-    mav.addObject("exito", "Prestamo editada exitosamente");
-    return mav;
-  }
-
-  @DeleteMapping("/{id}")
-  public ModelAndView eliminar(@PathVariable("id") Long id) {
-    ModelAndView mav;
-
-    if (prestamoRepositorio.hasReferences(id) ) {
-      mav = this.index();
-      mav.addObject("error", "No se puede borrar el registro porque posee datos asociados");
-    } else {
-      prestamoServicio.delete(id);
-      mav = this.index();
-      mav.addObject("exito", "Prestamo eliminada exitosamente");
-    }
-
-    return mav;
-  }
-    
-
-}

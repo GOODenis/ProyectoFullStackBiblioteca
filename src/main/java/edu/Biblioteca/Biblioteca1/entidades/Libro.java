@@ -18,12 +18,6 @@ public class Libro {
     private String autor;
     private Long cantidad;
 
-
-     // muchos libros se relacionan con el mismo admin
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne
     private Admin admin;
-
-
-
-
 }

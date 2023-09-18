@@ -9,17 +9,16 @@ import org.springframework.stereotype.*;
 
 @Service
 public class PrestamoServicio {
+
     @Autowired
     PrestamoRepositorio prestamoRepositorio;
 
     public List<Prestamo> getAll() {
-        List<Prestamo> lista = new ArrayList<Prestamo>();
-        prestamoRepositorio.findAll().forEach(registro -> lista.add(registro));
-        return lista;
+        return prestamoRepositorio.findAll();
     }
 
     public Prestamo getById(Long id) {
-        return prestamoRepositorio.findById(id).get();
+        return prestamoRepositorio.findById(id).orElse(null);
     }
 
     public void save(Prestamo prestamo) {

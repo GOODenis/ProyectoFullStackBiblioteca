@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.*;
 import java.nio.file.Paths;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,100 +19,56 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
 @RequestMapping("libros")
-public class LibroControlador implements WebMvcConfigurer {
+public class LibroControlador {
 
-    @Autowired
-    LibroRepositorio libroRepositorio;
-  
     @Autowired
     LibroServicio libroServicio;
 
     @GetMapping
-  public ModelAndView index() {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("fragments/base");
-    mav.addObject("titulo", "Listado de Libros");
-    mav.addObject("vista", "libros/index");
-    mav.addObject("libros", libroServicio.getAll());
-    return mav;
-  }
-
-  @GetMapping("/lista")
-  public List<Libro> lista() {
-    return libroServicio.getAll();
-  }
-
-  
-  @GetMapping("/crear")
-  public ModelAndView crear(Libro libro) {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("fragments/base");
-    mav.addObject("titulo", "Crear libro");
-    mav.addObject("vista", "libros/crear");
-    mav.addObject("libro", libro);
-    return mav;
-  }
-
-  @PostMapping("/crear")
-  public ModelAndView guardar(@Valid Libro libro, BindingResult br, RedirectAttributes ra) {
-    if ( br.hasErrors() ) {
-      return this.crear(libro);
+    public List<Libro> index() {
+        return libroServicio.getAll();
     }
 
-    libroServicio.save(libro);
-
-    ModelAndView mav = this.index();
-    mav.addObject("exito", "Libro cargado exitosamente");
-    return mav;
-  }
-
-  @GetMapping("/editar/{id}")
-  public ModelAndView editar(@PathVariable("id") Long id, Libro libro) {
-    ModelAndView mav = new ModelAndView();
-    mav.setViewName("fragments/base");
-    mav.addObject("titulo", "Editar libro");
-    mav.addObject("vista", "libros/editar");
-    mav.addObject("libro", libroServicio.getById(id));
-
-    return mav;
-  }
-
-  @PutMapping("/editar/{id}")
-  public ModelAndView actualizar(@PathVariable("id") Long id, @Valid Libro libro, BindingResult br, RedirectAttributes ra) {
-    if ( br.hasErrors() ) {
-      ModelAndView mav = new ModelAndView();
-      mav.setViewName("fragments/base");
-      mav.addObject("titulo", "Editar libro");
-      mav.addObject("vista", "libros/editar");
-      mav.addObject("libro", libro);
-      return mav;
+    @GetMapping("/{id}")
+    public ResponseEntity<Libro> obtenerLibroPorId(@PathVariable Long id) {
+        Libro libro = libroServicio.getById(id);
+        if (libro != null) {
+            return new ResponseEntity<>(libro, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    Libro registro = libroServicio.getById(id);
-    registro.setTitulo(libro.getTitulo());
-    registro.setAutor(libro.getAutor());
-    registro.setCantidad(libro.getCantidad());
-    ModelAndView mav = this.index();
-
-    libroServicio.save(registro);
-    mav.addObject("exito", "Libro editada exitosamente");
-    return mav;
-  }
-
-  @DeleteMapping("/{id}")
-  public ModelAndView eliminar(@PathVariable("id") Long id) {
-    ModelAndView mav;
-
-    if (libroRepositorio.hasReferences(id) ) {
-      mav = this.index();
-      mav.addObject("error", "No se puede borrar el registro porque posee datos asociados");
-    } else {
-      libroServicio.delete(id);
-      mav = this.index();
-      mav.addObject("exito", "Libro eliminada exitosamente");
+    @PostMapping
+    public ResponseEntity<Libro> crear(@Valid @RequestBody Libro libro) {
+        libroServicio.save(libro);
+        return new ResponseEntity<>(libro, HttpStatus.CREATED);
     }
 
-    return mav;
-  }
+    @PutMapping("/{id}")
+    public ResponseEntity<Libro> editar(@PathVariable Long id, @Valid @RequestBody Libro libro) {
+        Libro libroExistente = libroServicio.getById(id);
+        if (libroExistente != null) {
+            // Actualizar los campos necesarios
+            libroExistente.setTitulo(libro.getTitulo());
+            libroExistente.setAutor(libro.getAutor());
+            libroExistente.setCantidad(libro.getCantidad());
+            libroServicio.save(libroExistente);
+            return new ResponseEntity<>(libroExistente, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarLibro(@PathVariable Long id) {
+        Libro libro = libroServicio.getById(id);
+        if (libro != null) {
+            libroServicio.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
+

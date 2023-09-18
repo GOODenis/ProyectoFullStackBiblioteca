@@ -17,6 +17,7 @@ public class Prestamo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaPrestamo;
@@ -24,14 +25,9 @@ public class Prestamo {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaDevolucion;
 
-
-
     @ManyToOne
-    @JoinColumn(name = "estudiante_id")
     private Estudiante estudiante;
 
     @ManyToOne
-    @JoinColumn(name = "libro_id")
     private Libro libro;
-    
 }

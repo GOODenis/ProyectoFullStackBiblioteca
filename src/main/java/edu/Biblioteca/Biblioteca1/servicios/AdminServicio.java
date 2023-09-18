@@ -1,5 +1,6 @@
 package edu.Biblioteca.Biblioteca1.servicios;
 
+
 import edu.Biblioteca.Biblioteca1.entidades.*;
 import edu.Biblioteca.Biblioteca1.repositorios.*;
 import java.util.*;
@@ -7,24 +8,24 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 @Service
-public class LibroServicio {
+public class AdminServicio {
 
     @Autowired
-    LibroRepositorio libroRepositorio;
+    AdminRepositorio adminRepositorio;
 
-    public List<Libro> getAll() {
-        return libroRepositorio.findAll();
+    public List<Admin> getAll() {
+        return adminRepositorio.findAll();
     }
 
-    public Libro getById(Long id) {
-        return libroRepositorio.findById(id).orElse(null);
+    public Admin getById(Long id) {
+        return adminRepositorio.findById(id).orElse(null);
     }
 
-    public void save(Libro libro) {
-        libroRepositorio.save(libro);
+    public void save(Admin admin) {
+        adminRepositorio.save(admin);
     }
 
     public void delete(Long id) {
-        libroRepositorio.deleteById(id);
+        adminRepositorio.deleteById(id);
     }
 }

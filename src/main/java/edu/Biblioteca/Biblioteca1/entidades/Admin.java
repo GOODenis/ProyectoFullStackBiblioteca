@@ -8,36 +8,35 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
 
-    // un admin se relacionan con muchos libros
-    @OneToMany(mappedBy = "admin", fetch = FetchType.EAGER)
-    private Set<Libro> libros;
-    
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    private Set<Libro> libros = new HashSet<>();
+
     public void agregarLibro(Libro libro) {
-        this.getLibros().add(libro);
+        this.libros.add(libro);
+        libro.setAdmin(this);
     }
 
     public void quitarLibro(Libro libro) {
-        this.getLibros().remove(libro);
+        this.libros.remove(libro);
+        libro.setAdmin(null);
     }
-    
-     // un admin se relacionan con muchos estudiantes
-     
-    @OneToMany(mappedBy = "admin", fetch = FetchType.EAGER)
-    private Set<Estudiante> estudiantes;
-    
+
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    private Set<Estudiante> estudiantes = new HashSet<>();
+
     public void agregarEstudiante(Estudiante estudiante) {
-        this.getEstudiantes().add(estudiante);
+        this.estudiantes.add(estudiante);
+        estudiante.setAdmin(this);
     }
 
     public void quitarEstudiante(Estudiante estudiante) {
-        this.getEstudiantes().remove(estudiante);
+        this.estudiantes.remove(estudiante);
+        estudiante.setAdmin(null);
     }
-    
 }

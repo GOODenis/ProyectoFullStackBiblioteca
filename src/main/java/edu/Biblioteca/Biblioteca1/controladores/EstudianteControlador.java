@@ -6,12 +6,19 @@ import edu.Biblioteca.Biblioteca1.repositorios.*;
 import java.util.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+
+
+
+/*
 @RestController
 @RequestMapping("estudiantes")
 public class EstudianteControlador implements WebMvcConfigurer{
@@ -93,21 +100,76 @@ public class EstudianteControlador implements WebMvcConfigurer{
     mav.addObject("exito", "Estudiante editada exitosamente");
     return mav;
   }
-
   @DeleteMapping("/{id}")
-  public ModelAndView eliminar(@PathVariable("id") Long id) {
+public ModelAndView eliminar(@PathVariable("id") Long id) {
     ModelAndView mav;
 
-    if (estudianteRepositorio.hasReferences(id) ) {
-      mav = this.index();
-      mav.addObject("error", "No se puede borrar el registro porque posee datos asociados");
+    if (estudianteRepositorio.existsByPrestamos_EstudianteId(id)) {
+        mav = this.index();
+        mav.addObject("error", "No se puede borrar el registro porque posee datos asociados");
     } else {
-      estudianteServicio.delete(id);
-      mav = this.index();
-      mav.addObject("exito", "Estudiante eliminada exitosamente");
+        estudianteServicio.delete(id);
+        mav = this.index();
+        mav.addObject("exito", "Estudiante eliminada exitosamente");
     }
 
     return mav;
-  }
+}
+*/
+@RestController
+@RequestMapping("estudiantes")
+public class EstudianteControlador {
+
+    @Autowired
+    EstudianteServicio estudianteServicio;
+
+    @GetMapping
+    public List<Estudiante> listarEstudiantes() {
+        return estudianteServicio.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Estudiante> obtenerEstudiantePorId(@PathVariable Long id) {
+        Estudiante estudiante = estudianteServicio.getById(id);
+        if (estudiante != null) {
+            return new ResponseEntity<>(estudiante, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<Estudiante> crearEstudiante(@Valid @RequestBody Estudiante estudiante) {
+        estudianteServicio.save(estudiante);
+        return new ResponseEntity<>(estudiante, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Estudiante> actualizarEstudiante(@PathVariable Long id, @Valid @RequestBody Estudiante estudiante) {
+        Estudiante estudianteExistente = estudianteServicio.getById(id);
+        if (estudianteExistente != null) {
+            // Actualizar los campos necesarios
+            estudianteExistente.setNombre(estudiante.getNombre());
+            estudianteExistente.setDni(estudiante.getDni());
+            estudianteExistente.setDireccion(estudiante.getDireccion());
+            estudianteExistente.setEmail(estudiante.getEmail());
+            estudianteServicio.save(estudianteExistente);
+            return new ResponseEntity<>(estudianteExistente, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarEstudiante(@PathVariable Long id) {
+        Estudiante estudiante = estudianteServicio.getById(id);
+        if (estudiante != null) {
+            estudianteServicio.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     
 }

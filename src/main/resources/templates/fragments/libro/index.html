@@ -1,0 +1,60 @@
+<div class="container p-3" th:fragment="contenido">
+    <div class="card p-4">
+        <div class="row">
+            <div th:if="${exito}" class="alert alert-success alert-dismissible fade show">
+                <span th:text="${exito}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col h2">Listado de Libros</div>
+            <a href="/libros/crear" class="col-auto btn btn-lg btn-success">
+                <i class="fa-solid fa-plus"></i> Agregar Libro
+            </a>
+        </div>
+
+        <table id="libros" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Título del Libro</th>
+                    <th>Autor</th>
+                    <th>Cantidad Disponible</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="libro : ${libros}">
+                    <td th:text="${libro.titulo}"></td>
+                    <td th:text="${libro.autor}"></td>
+                    <td th:text="${libro.cantidad}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/libro/ver' + ${libro.id}}">
+                            <i class="fa-solid fa-eye"></i> Ver
+                        </a>
+
+                        <a class="btn btn-secondary" th:href="@{'/libro/editar/' + ${libro.id}}">
+                            <i class="fa-solid fa-pencil"></i> Editar
+                        </a>
+
+                        <form class="d-inline" th:action="@{'/libro/' + ${libro.id}}" th:method="delete">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro de eliminar?')">
+                                <i class="fa-solid fa-trash-can"></i> Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script th:fragment="script">
+    $(document).ready(function() {
+        $('#libro').DataTable();
+    });
+</script>
