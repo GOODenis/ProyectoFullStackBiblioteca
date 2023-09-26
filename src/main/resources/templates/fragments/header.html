@@ -1,80 +1,80 @@
 <nav class="navbar navbar-expand-lg bg-body-secondary" th:fragment="header">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Red CoaTIC</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_Administrador')">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Areas
-            </a>
-            <ul class="dropdown-menu" id="lista-areas"></ul>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Biblioteca </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_Administrador')">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Areas
+          </a>
+          <ul class="dropdown-menu" id="lista-areas"></ul>
+
+          <script th:inline="javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+              var listaAreas = document.getElementById("lista-areas");
+      
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "/libros/lista", true);
+              xhr.setRequestHeader("Content-Type", "application/json");
+      
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                  var libros = JSON.parse(xhr.responseText);
   
-            <script th:inline="javascript">
-              document.addEventListener("DOMContentLoaded", function () {
-                var listaAreas = document.getElementById("lista-areas");
-        
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "/areas/lista", true);
-                xhr.setRequestHeader("Content-Type", "application/json");
-        
-                xhr.onreadystatechange = function () {
-                  if (xhr.readyState === 4 && xhr.status === 200) {
-                    var areas = JSON.parse(xhr.responseText);
-    
-                    listaAreas.innerHTML = ""; // Limpia la lista antes de agregar las nuevas áreas
-    
-                    areas.forEach(function (area) {
-                      var listItem = document.createElement("li");
-                      var link = document.createElement("a");
-                      link.className = "dropdown-item";
-                      link.href = "/cursos/area/" + area.id;
-                      link.textContent = area.nombre;
-                      listItem.appendChild(link);
-                      listaAreas.appendChild(listItem);
-                    });
-                  } else if (xhr.readyState === 4 && xhr.status !== 200) {
-                      console.error("Error al cargar las áreas.");
-                  }
-                };
-        
-                xhr.send();
-              });
-            </script>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Link</a>
-          </li>
-          <li class="nav-item" sec:authorize="isAuthenticated()">
-            <form class="form-inline" th:action="@{/logout}" method="POST">
-              <button class="btn btn-link nav-link active" type="submit" onclick="return confirm('¿Seguro de cerrar sesión?')">
-                <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
-              </button>
-            </form>
-          </li>
-          <li class="nav-item" sec:authorize="isAnonymous()">
-            <a class="nav-link active" aria-current="page" href="/login">
-              <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
-            </a>
-          </li>
-          <li class="nav-item" sec:authorize="isAnonymous()">
-            <a class="nav-link active" aria-current="page" href="/registro">
-              <i class="fa-solid fa-user-plus"></i> Registrarse
-            </a>
-          </li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
+                  listaLibros.innerHTML = ""; // Limpia la lista antes de agregar las nuevas áreas
+  
+                  libros.forEach(function (libro) {
+                    var listItem = document.createElement("li");
+                    var link = document.createElement("a");
+                    link.className = "dropdown-item";
+                    link.href = "/libros/estudiantes/prestamos/" + libro.id;
+                    link.textContent = libro.titulo;
+                    listItem.appendChild(link);
+                    listaAreas.appendChild(listItem);
+                  });
+                } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                    console.error("Error al cargar las áreas.");
+                }
+              };
+      
+              xhr.send();
+            });
+          </script>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Link</a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()">
+          <form class="form-inline" th:action="@{/logout}" method="POST">
+            <button class="btn btn-link nav-link active" type="submit" onclick="return confirm('¿Seguro de cerrar sesión?')">
+              <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+            </button>
+          </form>
+        </li>
+        <li class="nav-item" sec:authorize="isAnonymous()">
+          <a class="nav-link active" aria-current="page" href="/login">
+            <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
+          </a>
+        </li>
+        <li class="nav-item" sec:authorize="isAnonymous()">
+          <a class="nav-link active" aria-current="page" href="/registro">
+            <i class="fa-solid fa-user-plus"></i> Registrarse
+          </a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
-  </nav>
+  </div>
+</nav>
