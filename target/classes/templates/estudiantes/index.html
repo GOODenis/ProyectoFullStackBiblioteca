@@ -1,0 +1,61 @@
+<div class="container p-3" th:fragment="contenido">
+    <div class="card p-4">
+        <div class="row">
+            <div th:if="${exito}" class="alert alert-success alert-dismissible fade show">
+                <span th:text="${exito}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col h2">Listado de Estudiantes</div>
+            <a href="/estudiante/crear" class="col-auto btn btn-lg btn-success">
+                <i class="fa-solid fa-plus"></i> Agregar Estudiante
+            </a>
+        </div>
+
+        <table id="libros" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombre Estudiante</th>
+                    <th>DNI</th>
+                    <th>Direccion </th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="estudiante : ${estudiante}">
+                    <td th:text="${estudiante.nombre}"></td>
+                    <td th:text="${estudiante.dni}"></td>
+                    <td th:text="${estudiante.direccion}"></td>
+                    <td th:text="${estudiante.email}"></td>
+                    <td>
+                        <a class="btn btn-primary" th:href="@{'/estudiante/{id}' (id=${estudiante.id})}">
+                            <i class="fa-solid fa-eye"></i> Ver
+                        </a>
+
+                        <a class="btn btn-secondary" th:href="@{'/estudiante/editar/{id}' (id=${estudiante.id})}">
+                            <i class="fa-solid fa-pencil"></i> Editar
+                        </a>
+
+                        <form class="d-inline" th:action="@{'/estudiante/{id}' (id=${estudiante.id})}" th:method="DELETE">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro de eliminar?')">
+                                <i class="fa-solid fa-trash-can"></i> Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script th:fragment="script">
+    $(document).ready(function() {
+        $('#libros').DataTable();
+    });
+</script>

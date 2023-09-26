@@ -1,0 +1,28 @@
+<div class="container my-auto p-3" th:fragment="contenido">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header h3" th:text="${estudiante.nombre}"></div>
+                <div class="card-body">
+                    <p>
+                        <span class="fw-bold">DNI:</span>
+                        <span th:text="${estudiante.dni}"></span>
+                    </p>
+                    <p>
+                        <span class="fw-bold">Direccion:</span>
+                        <span th:text="${estudiante.direccion}"></span>
+                    </p>
+                    <p>
+                        <span class="fw-bold">Email:</span>
+                        <span th:text="${estudiante.email}"></span>
+                    </p>
+                    <div class="d-flex justify-content-center">
+                        <a href="/estudiante" class="btn btn-secondary mx-2">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:fragment="script"></script>
