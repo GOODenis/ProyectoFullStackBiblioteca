@@ -1,7 +1,6 @@
 <div class="container pt-3 my-auto" th:fragment="contenido">
   <div class="card-columns">
-
-    <div class="card d-inline-block" th:each="c : ${cursos}">
+    <div class="card d-inline-block" th:each="c : ${libros}">
       <img th:src="|/images/libros/${c.imagen}|" class="card-img-top" th:alt="${c.nombre}">
       <div class="card-body">
         <h5 class="card-title" th:text="${c.nombre}"></h5>
